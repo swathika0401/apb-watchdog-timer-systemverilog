@@ -1,0 +1,5 @@
+class apb_txn;
+    rand bit [7:0] addr;
+    rand bit [31:0] data;
+    rand bit write;
+endclass
