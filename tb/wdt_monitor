@@ -1,0 +1,14 @@
+class wdt_monitor;
+    virtual wdt_if vif;
+    mailbox wdt2scb;
+
+    function new(mailbox m); wdt2scb=m; endfunction
+
+    task run();
+        forever begin
+            @(posedge vif.WDOGCLK);
+            if(vif.WDOGINT) wdt2scb.put("INT");
+            if(vif.WDOGRES) wdt2scb.put("RESET");
+        end
+    endtask
+endclass
