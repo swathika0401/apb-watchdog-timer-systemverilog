@@ -1,0 +1,22 @@
+class scoreboard;
+    mailbox exp_mbx, act_mbx;
+
+    function new(mailbox e, mailbox a);
+        exp_mbx=e; act_mbx=a;
+    endfunction
+
+    task run();
+        string exp, act;
+        forever begin
+            exp_mbx.get(exp);
+            act_mbx.get(act);
+
+            if(exp=="EXPECT_INT" && act=="INT")
+                $display("PASS: INTERRUPT OK");
+            else if(exp=="EXPECT_RESET" && act=="RESET")
+                $display("PASS: RESET OK");
+            else
+                $display("FAIL");
+        end
+    endtask
+endclass
