@@ -1,0 +1,4 @@
+class wdt_txn;
+    bit interrupt;
+    bit reset;
+endclass
