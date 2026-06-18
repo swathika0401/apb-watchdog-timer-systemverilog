@@ -1,0 +1,15 @@
+class ref_model;
+    mailbox ref_in, ref_out;
+
+    function new(mailbox i, mailbox o);
+        ref_in=i; ref_out=o;
+    endfunction
+
+    task run();
+        string exp;
+        forever begin
+            ref_in.get(exp);
+            ref_out.put(exp);
+        end
+    endtask
+endclass
