@@ -1,0 +1,18 @@
+class apb_monitor;
+    virtual apb_if vif;
+    mailbox mon2scb;
+
+    function new(mailbox m); mon2scb=m; endfunction
+
+    task run();
+        forever begin
+            @(posedge vif.PCLK);
+            if(vif.PSEL && vif.PENABLE) begin
+                apb_txn t=new();
+                t.addr=vif.PADDR;
+                t.data=vif.PWDATA;
+                mon2scb.put(t);
+            end
+        end
+    endtask
+endclass
