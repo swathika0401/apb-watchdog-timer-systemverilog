@@ -120,11 +120,4 @@ https://www.edaplayground.com/x/V_nJ
 **V M Swathika**  
  GitHub: https://github.com/swathika0401
 
-## Project Status
 
-✅ RTL Design Completed  
-✅ APB Interface Implemented  
-✅ Verification Environment Developed  
-✅ Simulation Completed  
-✅ Waveform Analysis Completed  
-✅ Documentation and IEEE Paper Prepared
