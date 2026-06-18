@@ -1,123 +1,201 @@
-# apb-watchdog-timer-systemverilog
-APB-Based Watchdog Timer implemented in SystemVerilog with configurable timeout, interrupt/reset generation, APB communication, and a self-checking verification environment for reliable fault monitoring in SoC systems
+# ⏱️ APB-Based Watchdog Timer Design and Verification using SystemVerilog
 
-## Overview
-This project presents the design and verification of an APB-Based Watchdog Timer implemented using SystemVerilog. The watchdog timer is a fault-monitoring peripheral commonly used in embedded systems and System-on-Chip (SoC) architectures to detect software failures such as processor hangs, infinite loops, and delayed responses.
-The design is integrated with the AMBA Advanced Peripheral Bus (APB) protocol, allowing processor-controlled configuration through memory-mapped registers. A layered SystemVerilog verification environment is developed to validate functionality and ensure reliable operation.
+## 📌 Overview
 
-## Objectives
-- Design an APB-compliant Watchdog Timer.
-- Implement configurable timeout functionality.
-- Generate interrupt and reset signals during timeout conditions.
-- Support watchdog refresh operations.
-- Develop a self-checking SystemVerilog verification environment.
-- Validate functionality through simulation and waveform analysis.
+The APB-Based Watchdog Timer is a SystemVerilog RTL design and verification project developed for fault monitoring in embedded systems and System-on-Chip (SoC) architectures. The watchdog timer continuously monitors processor activity and detects abnormal conditions such as software hangs, infinite loops, and delayed responses.
 
-## Key Features
-- APB Slave Interface
-- Configurable Timeout Value
-- 32-bit Watchdog Down Counter
-- Watchdog Refresh Mechanism
-- Interrupt Generation (WDOGINT)
-- Reset Generation (WDOGRES)
-- Memory-Mapped Register Access
-- Layered Verification Architecture
-- Self-Checking Scoreboard-Based Verification
+The design is integrated with the AMBA Advanced Peripheral Bus (APB) protocol, enabling processor-controlled configuration through memory-mapped registers. A layered SystemVerilog verification environment is developed to validate functionality and ensure reliable operation.
 
-## System Architecture
-The APB-Based Watchdog Timer consists of the following major blocks:
-1. APB Interface
-2. Load Register
-3. Control Register
-4. Interrupt Clear Register
-5. 32-bit Down Counter
-6. Interrupt Generation Logic
-7. Reset Generation Logic
+---
 
-## Working Principle
-1. The processor configures the watchdog through APB registers.
+## 🎯 Problem Statement
+
+Modern embedded systems require reliable fault detection mechanisms to ensure continuous operation. Software failures such as processor hangs, deadlocks, and infinite loops can cause system malfunction and reduce reliability.
+
+This project aims to design and verify a configurable APB-based Watchdog Timer capable of detecting processor inactivity and automatically initiating recovery actions through interrupt and reset generation.
+
+---
+
+## ✨ Features
+
+### 🔗 APB Slave Interface
+
+Supports communication with the processor using the AMBA APB protocol for register configuration and control.
+
+### ⏲️ Configurable Timeout Value
+
+Allows the processor to program different timeout values based on system requirements.
+
+### 🔄 Watchdog Refresh Mechanism
+
+The watchdog counter is periodically refreshed by the processor during normal operation.
+
+### ⚠️ Interrupt Generation (WDOGINT)
+
+Generates an interrupt signal when the first timeout event occurs, providing an early warning indication.
+
+### 🔁 Reset Generation (WDOGRES)
+
+Generates a system reset signal if the watchdog remains unrefreshed after the interrupt stage.
+
+### 🧪 Layered Verification Environment
+
+Implements a self-checking SystemVerilog testbench using generator, driver, monitor, reference model, and scoreboard components.
+
+---
+
+## 🛠️ Technologies Used
+
+* SystemVerilog
+* RTL Design
+* Functional Verification
+* AMBA APB Protocol
+* Digital Design
+* SoC Design Concepts
+* EDA Playground
+
+---
+
+## 📚 Verification Components
+
+### Generator
+
+Creates APB transactions and watchdog test scenarios.
+
+### Driver
+
+Converts transactions into APB protocol signals and drives them to the DUT.
+
+### Monitor
+
+Observes DUT outputs and captures watchdog behavior.
+
+### Reference Model
+
+Predicts expected watchdog functionality.
+
+### Scoreboard
+
+Compares expected outputs with actual DUT outputs and reports PASS/FAIL status.
+
+---
+
+## ⚙️ Working Principle
+
+1. Processor configures watchdog registers through the APB interface.
 2. A timeout value is loaded into the watchdog counter.
 3. The counter continuously decrements with every clock cycle.
 4. The processor periodically refreshes the watchdog.
-5. If refresh is not received before timeout:
-   - WDOGINT is generated.
-6. If the watchdog remains unrefreshed:
-   - WDOGRES is generated.
-7. The system recovers through reset operation.
+5. If refresh is received, the counter reloads and operation continues.
+6. If refresh is absent, the watchdog generates an interrupt signal (WDOGINT).
+7. If the watchdog remains unrefreshed, a reset signal (WDOGRES) is generated.
+8. The system recovers and resumes normal operation.
 
-## Verification Environment
-A layered SystemVerilog verification environment is developed to validate watchdog functionality.
+---
 
-### Verification Components
+## 📁 Project Structure
 
-- Interface
-- Transaction Class
-- Generator
-- Driver
-- Monitor
-- Reference Model
-- Scoreboard
-- Environment
-- Test
+apb-watchdog-timer-systemverilog/
 
-## Test Scenarios
-The following test cases were verified:
-- APB Register Write Operations
-- APB Register Read Operations
-- Watchdog Refresh Operation
-- Counter Decrement Verification
-- Timeout Detection
-- Interrupt Generation
-- Reset Generation
-- Boundary Condition Testing
+├── rtl/
 
-## Results
+│   └── wdt_apb.sv
 
-Simulation results confirmed:
-- Correct APB Communication
-- Successful Timeout Detection
-- Proper Counter Operation
-- Correct Refresh Functionality
-- Interrupt Generation (WDOGINT)
-- Reset Generation (WDOGRES)
-- Reliable Fault Monitoring Behavior
+├── tb/
 
-The waveform analysis verified that the watchdog operates according to the expected two-stage timeout mechanism.
+│   ├── apb_if.sv
 
-## Simulation
+│   ├── wdt_if.sv
 
-EDA Playground Link:
+│   ├── transaction.sv
+
+│   ├── generator.sv
+
+│   ├── driver.sv
+
+│   ├── monitor.sv
+
+│   ├── reference_model.sv
+
+│   ├── scoreboard.sv
+
+│   ├── environment.sv
+
+│   └── test.sv
+
+├── docs/
+
+│   ├── APB_Watchdog_Timer_block_diagram.jpeg
+
+│   ├── APB_Watchdog_Timer_Flow_chart.jpeg
+
+│   ├── analysis_waveform.jpeg
+
+│   └── APB_Watchdog_Timer_IEEE_PAPER.pdf
+
+├── README.md
+
+└── LICENSE
+
+---
+
+## 📸 Results
+
+### System Architecture
+
+![Block Diagram](APB_Watchdog_Timer_block_diagram.jpeg)
+
+### Flowchart
+
+![Flowchart](APB_Watchdog_Timer_Flow_chart.jpeg)
+
+### Simulation Waveform
+
+![Waveform](analysis_waveform.jpeg)
+
+Simulation results confirm:
+
+* Correct APB communication
+* Successful timeout detection
+* Proper watchdog refresh operation
+* Interrupt generation (WDOGINT)
+* Reset generation (WDOGRES)
+
+---
+
+## ▶️ Simulation
+
+### EDA Playground
 
 https://www.edaplayground.com/x/V_nJ
 
-## Applications
+---
 
-- Embedded Systems
-- System-on-Chip (SoC) Designs
-- Automotive Electronics
-- Industrial Automation
-- Safety-Critical Systems
-- IoT Devices
+## 🔮 Future Enhancements
 
-## Future Enhancements
+* Window Watchdog Implementation
+* FPGA-Based Hardware Validation
+* UVM-Based Verification Environment
+* Programmable Clock Divider Support
+* Advanced Fault Monitoring Features
 
-- Window Watchdog Support
-- FPGA Implementation
-- UVM-Based Verification
-- Programmable Clock Divider
-- Advanced Fault Detection Mechanisms
+---
 
-## Tools Used
+## 🎓 Academic Use
 
-- SystemVerilog
-- RTL Design
-- Functional Verification
-- AMBA APB Protocol
-- EDA Playground
+This project was developed as part of VLSI Design and Verification learning to understand APB communication, watchdog timer architecture, RTL design, and functional verification methodologies.
 
-## Author
+---
 
-**V M Swathika**  
- GitHub: https://github.com/swathika0401
+## 👩‍💻 Author
+
+**V M Swathika**
+
+Electronics and Communication Engineering (ECE)
+
+RTL Design | SystemVerilog | Verification | SoC Design | VLSI
+
+GitHub: https://github.com/swathika0401
+
 
 
