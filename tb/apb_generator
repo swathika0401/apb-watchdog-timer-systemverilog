@@ -1,0 +1,16 @@
+class apb_generator;
+    mailbox gen2drv;
+
+    function new(mailbox m); gen2drv = m; endfunction
+
+    task run();
+        apb_txn t;
+
+        t = new(); t.addr=8'h00; t.data=5; t.write=1; gen2drv.put(t);
+        t = new(); t.addr=8'h04; t.data=3; t.write=1; gen2drv.put(t);
+
+        #200;
+
+        t = new(); t.addr=8'h0C; t.data=1; t.write=1; gen2drv.put(t);
+    endtask
+endclass
