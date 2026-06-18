@@ -1,0 +1,7 @@
+class wdt_driver;
+    virtual wdt_if vif;
+
+    task run();
+        vif.WDOGCLKEN = 1;
+    endtask
+endclass
