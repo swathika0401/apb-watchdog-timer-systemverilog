@@ -6,7 +6,7 @@ class apb_monitor;
 
     task run();
         forever begin
-            @(posedge vif.PCLK);
+            @(posedge vif.PCLK); 
             if(vif.PSEL && vif.PENABLE) begin
                 apb_txn t=new();
                 t.addr=vif.PADDR;
