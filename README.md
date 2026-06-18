@@ -195,7 +195,7 @@ Electronics and Communication Engineering (ECE)
 
 RTL Design | SystemVerilog | Verification | SoC Design | VLSI
 
-GitHub: https://github.com/swathika0401
+GitHub: https://github.com/swathika0401/apb-watchdog-timer-systemverilog
 
 
 
